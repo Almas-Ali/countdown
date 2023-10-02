@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta author="Md. Almas Ali">
+    <meta name="description" content="A simple countdown timer for internship">
+    <meta name="keywords" content="Countdown Timer, Internship, Internship Ends In">
+    <meta name="robots" content="index, follow">
+    <meta name="googlebot" content="index, follow">
+    <meta name="google" content="nositelinkssearchbox">
+    <meta name="google" content="notranslate">
+
+    <meta property="og:title" content="Countdown Timer">
+    <meta property="og:description" content="A simple countdown timer for internship">
+    <meta property="og:image" content="./static/bg.jpg">
+    <meta property="og:url" content="https://almas-ali.github.io/countdown-timer/">
+    <meta property="og:site_name" content="Countdown Timer">
+    <meta property="og:type" content="website">
+
+    <meta name="twitter:title" content="Countdown Timer">
+    <meta name="twitter:description" content="A simple countdown timer for internship">
+    <meta name="twitter:image" content="./static/bg.jpg">
+    <meta name="twitter:card" content="summary_large_image">
+
+    <link rel="shortcut icon" href="./static/favicon.ico" type="image/x-icon">
+    <title>Countdown Timer</title>
+
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+        box-sizing: border-box;
+      }
+
+      body,
+      html {
+        height: 100%;
+      }
+
+      #image {
+        /* background: rgb(147, 95, 255);
+        background: linear-gradient(90deg, rgba(147, 95, 255, 1) 50%, rgba(113, 88, 226, 1) 100%); */
+        /* The image used */
+        background-image: url("./static/bg.jpg");
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        filter: blur(5px);
+        -webkit-filter: blur(5px);
+        height: 100%;
+      }
+
+      .site-title {
+        background-color: rgb(0, 0, 0);
+        /* Fallback color */
+        background-color: rgba(0, 0, 0, 0.4);
+        /* Black w/opacity/see-through */
+        color: white;
+        font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+        font-weight: bold;
+        font-size: 35px;
+        border: 3px solid #f1f1f1;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+        z-index: 2;
+        width: 80%;
+        padding: 20px;
+        text-align: center;
+      }
+
+      .timer {
+        font-size: 50px;
+        margin-top: 10px;
+      }
+
+      #copyrights {
+        position: absolute;
+        bottom: 0;
+        right: 0;
+        color: #fff;
+        font-size: 16px;
+        font-weight: 600;
+        border: 3px solid #f1f1f1;
+        padding: 10px;
+        margin: 5px;
+      }
+
+      #copyrights a {
+        color: #fff;
+        text-decoration: none;
+      }
+
+      #copyrights a:hover {
+        color: #008cff;
+        text-decoration: underline;
+        transition: 0.3s ease-in-out;
+      }
+
+      @media only screen and (max-width: 600px) {
+        .site-title {
+          font-size: 20px;
+        }
+
+        .timer {
+          font-size: 30px;
+        }
+
+        #copyrights {
+          font-size: 15px;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+
+    <div id="image"></div>
+    <section class="site-title">
+      <p>
+        Internship Ends In
+      </p>
+      <p class="timer">
+        <strong id="clock"></strong>
+      </p>
+    </section>
+
+    <div id="copyrights">
+      <p>
+        Created by <a href="https://almasali.net/" target="_blank">Md. Almas Ali</a>
+      </p>
+    </div>
+
+    <script>
+      // Countdown Timer Configuration
+      countdownTimer();
+
+      function countdownTimer() {
+        var countDownDate = new Date("2023-11-30T00:00:00+06:00").getTime();
+
+        var x = setInterval(function () {
+          var now = new Date().getTime();
+          var distance = countDownDate - now;
+
+          var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+          var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+          var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+          // minutes = minutes - 27
+          var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+          // seconds = seconds - 25
+
+          document.getElementById("clock").innerHTML = days + "d " + hours + "h " + minutes + "m " + seconds + "s ";
+
+          if (distance < 0) {
+            clearInterval(x);
+            document.getElementById("clock").innerHTML = "EXPIRED";
+          }
+
+          // play every hour sound 
+          // if (minutes == 0 && seconds == 0) {
+          //   var audio = new Audio('./static/sound.mp3');
+          //   audio.play();
+          // }
+          // var msg = new SpeechSynthesisUtterance();
+          // var voices = window.speechSynthesis.getVoices();
+          // console.log(voices);
+
+        //   if (minutes == 0 && seconds == 0) {
+        //     // Set the voice parameters for natural speech
+        //     var msg = new SpeechSynthesisUtterance();
+        //     msg.text = `Hello Almas, your internship ends in 
+        // ${days > 0 ? days + " days" : ""} 
+        // ${hours > 0 ? hours + " hours" : ""}
+        // ${minutes > 0 ? minutes + " minutes" : ""}
+        // ${seconds > 0 ? seconds + " seconds" : ""}
+        // hour.`;
+        //     // Get available voices
+        //     var voices = window.speechSynthesis.getVoices();
+
+        //     // Find a suitable voice (you can customize this)
+        //     var chosenVoice = null;
+        //     for (var i = 0; i < voices.length; i++) {
+        //       if (voices[i].name === "Google UK English Female") {
+        //         chosenVoice = voices[i];
+        //         break;
+        //       }
+        //     }
+
+        //     // If no specific voice is found, use the default voice
+        //     msg.voice = chosenVoice || voices[0];
+
+        //     msg.lang = 'en-US';
+        //     msg.volume = 1; // 0 to 1
+        //     msg.rate = 1; // 0.1 to 10
+        //     msg.pitch = 1; // 0 to 2 (adjust as needed)
+
+        //     window.speechSynthesis.speak(msg);
+        //   }
+
+        }, 1000);
+      }
+
+    </script>
+  </body>
+
+</html>
